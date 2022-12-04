@@ -1,3 +1,5 @@
+using WeatherAlertTelegram.Extensions;
+
 namespace WeatherAlertTelegram
 {
     public class Program
@@ -12,6 +14,8 @@ namespace WeatherAlertTelegram
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.RegisterServices();
 
             var app = builder.Build();
 

@@ -11,7 +11,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.HasKey(x => x.ChatId);
+        builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Name)
             .IsRequired(true)
@@ -20,5 +20,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.City)
             .IsRequired(true)
             .HasMaxLength(CityMaxLength);
+
+        builder.Property(x => x.ChatId)
+            .IsRequired();
     }
 }
