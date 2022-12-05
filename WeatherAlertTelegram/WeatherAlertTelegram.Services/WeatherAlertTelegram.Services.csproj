@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WeatherAlertTelegram.Core\WeatherAlertTelegram.Core.csproj" />
+    <ProjectReference Include="..\WeatherAlertTelegram.Domain\WeatherAlertTelegram.Domain.csproj" />
     <ProjectReference Include="..\WeatherAlertTelegram.Services.Abstractions\WeatherAlertTelegram.Services.Abstractions.csproj" />
   </ItemGroup>
 

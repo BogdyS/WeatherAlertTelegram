@@ -15,7 +15,8 @@ namespace WeatherAlertTelegram
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.RegisterServices();
+            builder.RegisterDatabase();
+            builder.Services.RegisterServices();
 
             var app = builder.Build();
 
