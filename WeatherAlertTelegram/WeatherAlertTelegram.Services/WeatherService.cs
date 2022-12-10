@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using System.Text.Json;
+using Newtonsoft.Json;
 using WeatherAlertTelegram.Domain.Exceptions;
 using WeatherAlertTelegram.Domain.Weather;
 using WeatherAlertTelegram.Services.Abstractions;
@@ -9,7 +9,7 @@ namespace WeatherAlertTelegram.Services;
 
 public class WeatherService : IWeatherService
 {
-    private const string Routing = "http://api.openweathermap.org/data/2.5/weather?q={0}&units=Celsius&appid={1}";
+    private const string Routing = "http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&appid={1}&lang=ru";
     private readonly WeatherApiOptions _options;
     private readonly HttpClient _httpClient;
 
@@ -30,9 +30,9 @@ public class WeatherService : IWeatherService
             throw new AppException("Something went wrong. Try again later.");
         }
 
-        var body = await response.Content.ReadAsStreamAsync(cancellationToken);
+        var body = await new StreamReader(await response.Content.ReadAsStreamAsync(cancellationToken)).ReadToEndAsync();
 
-        var @object = await JsonSerializer.DeserializeAsync<WeatherObject>(body, options : null, cancellationToken);
+        var @object = JsonConvert.DeserializeObject<WeatherObject>(body);
 
         return @object;
     }

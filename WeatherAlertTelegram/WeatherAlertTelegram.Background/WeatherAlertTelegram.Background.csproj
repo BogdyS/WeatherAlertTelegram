@@ -14,13 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\WeatherAlertTelegram.Core\WeatherAlertTelegram.Core.csproj" />
     <ProjectReference Include="..\WeatherAlertTelegram.Domain\WeatherAlertTelegram.Domain.csproj" />
     <ProjectReference Include="..\WeatherAlertTelegram.Services\WeatherAlertTelegram.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Workers\" />
   </ItemGroup>
 
 </Project>
