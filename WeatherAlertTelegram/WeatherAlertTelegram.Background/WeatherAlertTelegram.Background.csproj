@@ -7,11 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.32" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.32" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.32" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WeatherAlertTelegram.Core\WeatherAlertTelegram.Core.csproj" />
+    <ProjectReference Include="..\WeatherAlertTelegram.Domain\WeatherAlertTelegram.Domain.csproj" />
+    <ProjectReference Include="..\WeatherAlertTelegram.Services\WeatherAlertTelegram.Services.csproj" />
   </ItemGroup>
 
 </Project>
