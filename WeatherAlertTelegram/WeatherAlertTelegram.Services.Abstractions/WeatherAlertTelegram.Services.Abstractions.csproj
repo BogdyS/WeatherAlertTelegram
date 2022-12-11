@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Telegram.Bot" Version="18.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WeatherAlertTelegram.Core\WeatherAlertTelegram.Core.csproj" />
     <ProjectReference Include="..\WeatherAlertTelegram.Domain\WeatherAlertTelegram.Domain.csproj" />
   </ItemGroup>
 

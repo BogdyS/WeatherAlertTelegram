@@ -8,5 +8,5 @@ public class User
 
     public string City { get; set; }
 
-    public int ChatId { get; set; }
+    public long ChatId { get; set; }
 }

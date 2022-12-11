@@ -19,9 +19,7 @@ public class AccountService : IAccountService
 
     public async Task RegisterNewUserAsync(UserInput input, CancellationToken cancellationToken)
     {
-        var isUserExists = await _context.Users
-            .Where(x => x.ChatId == input.Id)
-            .AnyAsync(cancellationToken);
+        var isUserExists = await IsUserExistsAsync(input.Id, cancellationToken);
 
         if (isUserExists)
         {
@@ -53,5 +51,10 @@ public class AccountService : IAccountService
                 Id = x.Id,
             })
             .ToListAsync(cancellationToken);
+    }
+
+    public Task<bool> IsUserExistsAsync(long chatId, CancellationToken cancellationToken)
+    {
+        return _context.Users.AnyAsync(x => x.ChatId == chatId, cancellationToken);
     }
 }
