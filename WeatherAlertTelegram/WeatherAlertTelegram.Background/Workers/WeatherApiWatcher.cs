@@ -8,11 +8,13 @@ public class WeatherApiWatcher
 
     private readonly IWeatherService _weatherService;
     private readonly IAccountService _accountService;
+    private readonly IForecastService _forecastService;
 
-    public WeatherApiWatcher(IWeatherService weatherService, IAccountService accountService)
+    public WeatherApiWatcher(IWeatherService weatherService, IAccountService accountService, IForecastService forecastService)
     {
         _weatherService = weatherService;
         _accountService = accountService;
+        _forecastService = forecastService;
     }
 
     public async Task ExecuteAsync()
@@ -26,13 +28,16 @@ public class WeatherApiWatcher
             try
             {
                 var weather = await _weatherService.GetWeatherForCityAsync(city, CancellationToken.None);
-                //TODO: Implement weather's checks (Лиза)
+                var message = _forecastService.CreateAlert(weather, city);
+                if (message != null)
+                {
+                    //TODO: Send messages to users
+                }
             }
             catch
             {
                 continue;
             }
-            //TODO: Send messages to users
         }
     }
 }
