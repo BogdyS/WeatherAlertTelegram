@@ -17,6 +17,8 @@ public class DataContext : DbContext
 
     public virtual DbSet<User> Users => Set<User>();
 
+    public virtual DbSet<PendingRegistrations> PendingRegistrations => Set<PendingRegistrations>();
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
