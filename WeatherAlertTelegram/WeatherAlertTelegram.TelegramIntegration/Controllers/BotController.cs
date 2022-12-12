@@ -24,9 +24,9 @@ public class BotController : ControllerBase
     }
 
     [HttpPost("set-webhook")]
-    public async Task<IActionResult> SetWebhookAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> SetWebhookAsync([FromBody] string tunnel, CancellationToken cancellationToken)
     {
-        await _telegramService.SetWebHookAsync(cancellationToken);
+        await _telegramService.SetWebHookAsync(tunnel, cancellationToken);
         return Ok();
     }
 }

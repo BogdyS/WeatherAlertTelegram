@@ -2,6 +2,7 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using WeatherAlertTelegram.Services.Abstractions;
+using WeatherAlertTelegram.Services.Abstractions.Inputs;
 using WeatherAlertTelegram.Services.Abstractions.Options;
 
 namespace WeatherAlertTelegram.Services;
@@ -19,11 +20,11 @@ public class TelegramService : ITelegramService
         _telegramBotClientOptions = telegramBotClientOptions.Value;
     }
 
-    public async Task SetWebHookAsync(CancellationToken cancellationToken)
+    public async Task SetWebHookAsync(string tunnel, CancellationToken cancellationToken)
     {
         var client = new TelegramBotClient(_telegramBotClientOptions.ApiKey);
 
-        await client.SetWebhookAsync("https://a0e5-94-231-135-6.eu.ngrok.io/api/bot/post", cancellationToken: cancellationToken);
+        await client.SetWebhookAsync($"{tunnel}/api/bot/post", cancellationToken: cancellationToken);
 
         var res = await client.GetWebhookInfoAsync(cancellationToken);
     }
@@ -34,7 +35,7 @@ public class TelegramService : ITelegramService
 
         var isUserExists = await _accountService.IsUserExistsAsync(userId, cancellationToken);
 
-        if (true)
+        if (isUserExists)
         {
             var client = new TelegramBotClient(_telegramBotClientOptions.ApiKey);
 
@@ -42,5 +43,28 @@ public class TelegramService : ITelegramService
                 text : "Вы уже зарегестрированы и будете получать рассылку.",
                 cancellationToken : cancellationToken);
         }
+        else
+        {
+            //var userInput = new UserInput
+            //{
+            //    City = 
+            //}
+            //await _accountService.RegisterNewUserAsync(
+            //    new)
+        }
+    }
+
+    public async Task SendMessageAsync(
+        List<long> chatIds,
+        string message,
+        CancellationToken cancellationToken)
+    {
+        var client = new TelegramBotClient(_telegramBotClientOptions.ApiKey);
+
+        foreach (var id in chatIds)
+        {
+            await client.SendTextMessageAsync(chatId: id, text: message, cancellationToken: cancellationToken);
+        }
+        
     }
 }

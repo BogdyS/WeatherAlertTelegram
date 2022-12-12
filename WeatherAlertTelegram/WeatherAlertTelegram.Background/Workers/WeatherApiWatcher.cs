@@ -9,12 +9,18 @@ public class WeatherApiWatcher
     private readonly IWeatherService _weatherService;
     private readonly IAccountService _accountService;
     private readonly IForecastService _forecastService;
+    private readonly ITelegramService _telegramService;
 
-    public WeatherApiWatcher(IWeatherService weatherService, IAccountService accountService, IForecastService forecastService)
+    public WeatherApiWatcher(
+        IWeatherService weatherService,
+        IAccountService accountService,
+        IForecastService forecastService,
+        ITelegramService telegramService)
     {
         _weatherService = weatherService;
         _accountService = accountService;
         _forecastService = forecastService;
+        _telegramService = telegramService;
     }
 
     public async Task ExecuteAsync()
@@ -29,9 +35,15 @@ public class WeatherApiWatcher
             {
                 var weather = await _weatherService.GetWeatherForCityAsync(city, CancellationToken.None);
                 var message = _forecastService.CreateAlert(weather, city);
+
                 if (message != null)
                 {
-                    //TODO: Send messages to users
+                    var usersToSend = users
+                        .Where(x => x.City == city)
+                        .Select(x => x.ChatId)
+                        .ToList();
+
+                    await _telegramService.SendMessageAsync(usersToSend, message.Message, CancellationToken.None);
                 }
             }
             catch
