@@ -15,6 +15,7 @@ public static class BackgroundExtensions
         service.AddHttpClient<IWeatherService, WeatherService>();
         service.AddScoped<IAccountService, AccountService>();
         service.AddScoped<IForecastService, ForecastService>();
+        service.AddScoped<ITelegramService, TelegramService>();
 
         service.AddDataContext(configuration);
         RecurringJobs();
